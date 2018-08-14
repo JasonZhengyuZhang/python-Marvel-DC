@@ -30,6 +30,9 @@ def initialCardDeal():
     fullDeckList.append(HealCardList)
     fullDeckList.append(SpecialCardList)
     
+    time.sleep(1)
+
+    print("Deck are being split... \n")
 
     while len(playerDeckList) != 4 or len(opponentDeckList) != 4:
         currentRoundPlayerCardType = random.choice(fullDeckList)
@@ -59,25 +62,25 @@ def DeckSort(deck):
     sortedDeck = [availableAttack, availableHeal, availableSpecial]
     return sortedDeck
 
-def deckStatus(deck):
-    numberOfAttack = len(deck[0])
-    numberOfHeal = len(deck[1])
-    numberOfSpecial = len(deck[2])
+def deckStatus(attackDeck, healDeck, specialDeck):
+    numberOfAttack = len(attackDeck)
+    numberOfHeal = len(healDeck)
+    numberOfSpecial = len(specialDeck)
 
     AttackDes = ""
     HealDes = ""
     SpecialDes = ""
 
     if numberOfAttack > 0:
-        for card in deck[0]:
+        for card in attackDeck:
             AttackDes+="\t\t"+card.name + ": " + card.description + "\n"
     
     if numberOfHeal > 0:
-        for card in deck[1]:
+        for card in healDeck:
             HealDes+="\t\t"+card.name + ": " + card.description + "\n"
     
     if numberOfSpecial > 0:
-        for card in deck[2]:
+        for card in specialDeck:
             SpecialDes+="\t\t"+card.name + ": " + card.description + "\n"
 
     print ("\nYour Current Deck: \n" + "\t" + str(numberOfAttack) + " Attack Card(s) \n" + AttackDes + "\t" + str(numberOfHeal) + " Healing Card(s) \n" + HealDes + "\t" + str(numberOfSpecial) + " Special Cards(s) \n" + SpecialDes)
@@ -98,8 +101,23 @@ def startGamemode1(playerName):
     computer.healCard=computerDeckSorted[1]
     computer.specialCard=computerDeckSorted[2]
 
-    deckStatus(playerDeckSorted)
+    deckStatus(player.attackCard, player.healCard, player.specialCard)
 
+    turn = random,choice([1,2])
+
+    if turn==0:
+        print("A dice was tossed and you will go first")
+    else:
+        print("A dice was tossed and the computer will go first")
+
+    turnNumber = 0
+
+    while player.health > 0 or computer.health > 0:
+        if turn == 0:
+            print("h")
+        else:
+            print("e")
+            
 def startGame():
     print("\n\n"+"Welcome to the battle!")
     playerName=raw_input("Hero, please enter your name: ")
