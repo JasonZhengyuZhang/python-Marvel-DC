@@ -59,6 +59,29 @@ def DeckSort(deck):
     sortedDeck = [availableAttack, availableHeal, availableSpecial]
     return sortedDeck
 
+def deckStatus(deck):
+    numberOfAttack = len(deck[0])
+    numberOfHeal = len(deck[1])
+    numberOfSpecial = len(deck[2])
+
+    AttackDes = ""
+    HealDes = ""
+    SpecialDes = ""
+
+    if numberOfAttack > 0:
+        for card in deck[0]:
+            AttackDes+="\t\t"+card.name + ": " + card.description + "\n"
+    
+    if numberOfHeal > 0:
+        for card in deck[1]:
+            HealDes+="\t\t"+card.name + ": " + card.description + "\n"
+    
+    if numberOfSpecial > 0:
+        for card in deck[2]:
+            SpecialDes+="\t\t"+card.name + ": " + card.description + "\n"
+
+    print ("\nYour Current Deck: \n" + "\t" + str(numberOfAttack) + " Attack Card(s) \n" + AttackDes + "\t" + str(numberOfHeal) + " Healing Card(s) \n" + HealDes + "\t" + str(numberOfSpecial) + " Special Cards(s) \n" + SpecialDes)
+
 def startGamemode1(playerName):
     player = heroAndComputerSelection("hero")
     computer = heroAndComputerSelection("opponent")
@@ -68,7 +91,14 @@ def startGamemode1(playerName):
     computerDeckSorted = DeckSort(initialDeck[1])
 
     player.attackCard=playerDeckSorted[0]
-    print("s")
+    player.healCard=playerDeckSorted[1]
+    player.specialCard=playerDeckSorted[2]
+
+    computer.attackCard=computerDeckSorted[0]
+    computer.healCard=computerDeckSorted[1]
+    computer.specialCard=computerDeckSorted[2]
+
+    deckStatus(playerDeckSorted)
 
 def startGame():
     print("\n\n"+"Welcome to the battle!")
