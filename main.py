@@ -2,6 +2,9 @@ import random
 import time 
 
 from superhero import HeroList
+from Cards.attackCard import AttackCardList 
+from Cards.healCard import HealCardList
+from Cards.specialCard import SpecialCardList
 
 def countdown(t):
     while t:
@@ -9,27 +12,26 @@ def countdown(t):
         time.sleep(1)
         t-=1
 
-def heroAndComputerSelection():
-    print("\n" + "A hero will be selected for you ")
+def heroAndComputerSelection(character):
+    print("\n" + "A " + character +" will be selected for you ")
     countdown(3)
-
-    playerHero = random.choice(HeroList)
-    print("Your hero is " + playerHero.name)
-
-    print("\n" + "A opponent will be selected for you ")
-    countdown(3)
-
-    computerHero = random.choice(HeroList)
-    print("Your opponent is " + computerHero.name)
+    Hero = random.choice(HeroList)
+    print("Your " + character + " is " + Hero.name)
 
 def initialCardDeal():
-    deckList = []
+    playerDeckList=[]
+    opponentDeckList=[]
 
-    # while len(deckList) != 4:
+    fullDeckList = [AttackCardList, HealCardList, SpecialCardList]
+
+    while len(playerDeckList) != 4 or len(opponentDeckList) != 4:
+        currentRoundPlayerCard = random.choice(random.choice.fullDeckList)
+        print("here")
 
 
 def startGamemode1(playerName):
-    heroAndComputerSelection()
+    heroAndComputerSelection("hero")
+    heroAndComputerSelection("opponent")
 
     
 
