@@ -5,6 +5,7 @@ from superhero import HeroList
 from Cards.attackCard import AttackCardList 
 from Cards.healCard import HealCardList
 from Cards.specialCard import SpecialCardList
+from classes import *
 
 def countdown(t):
     while t:
@@ -42,14 +43,32 @@ def initialCardDeal():
     initalCard = [playerDeckList, opponentDeckList]
     return initalCard
 
-def countDeck(deck, type):
-    print("ds")
+def DeckSort(deck):
+    availableHeal = []
+    availableAttack = []
+    availableSpecial = []
 
+    for card in deck:
+        if card.getName()=="AttackCard":
+            availableAttack.append(card)
+        elif card.getName()=="HealCard":
+            availableHeal.append(card)
+        else:
+            availableSpecial.append(card)
+
+    sortedDeck = [availableAttack, availableHeal, availableSpecial]
+    return sortedDeck
 
 def startGamemode1(playerName):
     player = heroAndComputerSelection("hero")
     computer = heroAndComputerSelection("opponent")
     initialDeck = initialCardDeal()
+
+    playerDeckSorted = DeckSort(initialDeck[0])
+    computerDeckSorted = DeckSort(initialDeck[1])
+
+    player.attackCard=playerDeckSorted[0]
+    print("s")
 
 def startGame():
     print("\n\n"+"Welcome to the battle!")
