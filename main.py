@@ -17,23 +17,39 @@ def heroAndComputerSelection(character):
     countdown(3)
     Hero = random.choice(HeroList)
     print("Your " + character + " is " + Hero.name)
+    time.sleep(1)
+    return Hero
 
 def initialCardDeal():
     playerDeckList=[]
     opponentDeckList=[]
 
-    fullDeckList = [AttackCardList, HealCardList, SpecialCardList]
+    fullDeckList = []
+    fullDeckList.append(AttackCardList)
+    fullDeckList.append(HealCardList)
+    fullDeckList.append(SpecialCardList)
+    
 
     while len(playerDeckList) != 4 or len(opponentDeckList) != 4:
-        currentRoundPlayerCard = random.choice(random.choice.fullDeckList)
-        print("here")
+        currentRoundPlayerCardType = random.choice(fullDeckList)
+        currentRoundPlayerCard = random.choice(currentRoundPlayerCardType)
+        playerDeckList.append(currentRoundPlayerCard)
+
+        currentRoundOpponentCardType = random.choice(fullDeckList)
+        currentRoundOpponentCard = random.choice(currentRoundOpponentCardType)
+        opponentDeckList.append(currentRoundOpponentCard)
+
+    initalCard = [playerDeckList, opponentDeckList]
+    return initalCard
+
+def countDeck(deck, type):
+    print("ds")
 
 
 def startGamemode1(playerName):
-    heroAndComputerSelection("hero")
-    heroAndComputerSelection("opponent")
-
-    
+    player = heroAndComputerSelection("hero")
+    computer = heroAndComputerSelection("opponent")
+    initialDeck = initialCardDeal()
 
 def startGame():
     print("\n\n"+"Welcome to the battle!")
