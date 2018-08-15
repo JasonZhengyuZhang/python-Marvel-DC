@@ -100,6 +100,12 @@ def deckStatus(attackDeck, healDeck, specialDeck):
 
     print ("\nYour Current Deck: \n" + "\t" + str(numberOfAttack) + " Attack Card(s) \n" + AttackDes + "\t" + str(numberOfHeal) + " Healing Card(s) \n" + HealDes + "\t" + str(numberOfSpecial) + " Special Cards(s) \n" + SpecialDes)
 
+def choiceOne(attackDeck):
+    if len(attackDeck)==0:
+        print("you cannot attack")
+    else:
+        print("you may attack")
+
 def startGamemode1(playerName):
 
     heroAndComputer = heroAndComputerSelection()
@@ -145,10 +151,12 @@ def startGamemode1(playerName):
         print("A dice was tossed and the computer will go first")
     time.sleep(1)
 
+    choices = {"1": choiceOne}
+
     while player.health > 0 and computer.health > 0:
         if turnDict["player"]==True:
             print("\nIt is your turn")
-            time.sleep(1)
+            time.sleep(2)
             newCard = drawCard()
 
             if newCard[0] == "AttackCard":
@@ -159,8 +167,13 @@ def startGamemode1(playerName):
                 player.specialCard.append(newCard[1])
 
             print("You have drawn your card and below is your current deck")
-            time.sleep(1)
+            time.sleep(2)
             deckStatus(player.attackCard, player.healCard, player.specialCard)
+            time.sleep(1)
+            
+            print("What would you like to do?\n\t1.Attack 2.Heal 3.Special 4.Attack and Special 5.Heal and Special 6.Do Nothing")
+            userChoice = input("->")
+            choices[str(userChoice)](player.attackCard)
 
             computer.health-=1000
         else:
