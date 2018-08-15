@@ -13,13 +13,16 @@ def countdown(t):
         time.sleep(1)
         t-=1
 
-def heroAndComputerSelection(character):
-    print("\n" + "A " + character +" will be selected for you ")
-    countdown(3)
+def heroAndComputerSelection():
     Hero = random.choice(HeroList)
-    print("Your " + character + " is " + Hero.name)
-    time.sleep(1)
-    return Hero
+    Computer = random.choice(HeroList)
+
+    while Hero == Computer:
+        Hero = random.choice(HeroList)
+        Computer = random.choice(HeroList)
+    
+    heroAndComputer=[Hero, Computer]
+    return heroAndComputer
 
 def initialCardDeal():
     playerDeckList=[]
@@ -32,8 +35,8 @@ def initialCardDeal():
     
     time.sleep(1)
 
-    print("Deck are being split... \n")
-
+    print("\n Deck are being split... \n")
+    
     while len(playerDeckList) != 4 or len(opponentDeckList) != 4:
         currentRoundPlayerCardType = random.choice(fullDeckList)
         currentRoundPlayerCard = random.choice(currentRoundPlayerCardType)
@@ -86,8 +89,23 @@ def deckStatus(attackDeck, healDeck, specialDeck):
     print ("\nYour Current Deck: \n" + "\t" + str(numberOfAttack) + " Attack Card(s) \n" + AttackDes + "\t" + str(numberOfHeal) + " Healing Card(s) \n" + HealDes + "\t" + str(numberOfSpecial) + " Special Cards(s) \n" + SpecialDes)
 
 def startGamemode1(playerName):
-    player = heroAndComputerSelection("hero")
-    computer = heroAndComputerSelection("opponent")
+
+    heroAndComputer = heroAndComputerSelection()
+
+    player = heroAndComputer[0]
+    computer = heroAndComputer[1]
+
+    print("\nA hero will be selected for you")
+    countdown(3)
+    print("Your hero is " + player.name)
+    time.sleep(1)
+
+    print("\nA opponent will be selected for you")
+    countdown(3)
+    print("Your opponent is " + computer.name)
+    time.sleep(1) 
+
+
     initialDeck = initialCardDeal()
 
     playerDeckSorted = DeckSort(initialDeck[0])
@@ -103,20 +121,26 @@ def startGamemode1(playerName):
 
     deckStatus(player.attackCard, player.healCard, player.specialCard)
 
-    turn = random,choice([1,2])
+    turn = random.choice([1,2])
+    turnDict = {"player": False, "computer": False}
 
     if turn==0:
+        turnDict["player"]=True
         print("A dice was tossed and you will go first")
     else:
+        turnDict["computer"]=True
         print("A dice was tossed and the computer will go first")
 
-    turnNumber = 0
-
     while player.health > 0 or computer.health > 0:
-        if turn == 0:
-            print("h")
+        if turnDict["player"]==True:
+            computer.health-=1000
+            print("players turn")
         else:
-            print("e")
+            print("computer's turn")
+
+        turnDict["player"] = not turnDict["player"]
+        turnDict["computer"] = not turnDict["computer"]
+
             
 def startGame():
     print("\n\n"+"Welcome to the battle!")
