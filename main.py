@@ -100,11 +100,26 @@ def deckStatus(attackDeck, healDeck, specialDeck):
 
     print ("\nYour Current Deck: \n" + "\t" + str(numberOfAttack) + " Attack Card(s) \n" + AttackDes + "\t" + str(numberOfHeal) + " Healing Card(s) \n" + HealDes + "\t" + str(numberOfSpecial) + " Special Cards(s) \n" + SpecialDes)
 
-def choiceOne(attackDeck):
-    if len(attackDeck)==0:
+def choices(attacker, defender):
+    choices = {"1": choiceOne}
+    print("What would you like to do?\n\t1.Attack 2.Heal 3.Special 4.Attack and Special 5.Heal and Special 6.Do Nothing")
+    userChoice = input("->")
+    choices[str(userChoice)](attacker, defender)
+
+def choiceOne(attacker, defender):
+    if len(attacker.attackCard)==0:
         print("you cannot attack")
+        choices(attacker, defender)
     else:
-        print("you may attack")
+        print("\nWhich attack card would you like to use?")
+        for card in attacker.attackCard:
+            print("\n-"+card.name+"\n")
+        choosenCard=input(">")-1
+        totalDamage=attacker.attackCard[choosenCard].attackBonus + attacker.attack
+        defender.health-=totalDamage
+        print(attacker.name + "have dealt " + str(totalDamage) + " damage to " + defender.name)
+        print("\n" + attacker.name + " current health: " + str(attacker.health))
+        print("\n" + defender.name + " current health: " + str(defender.health))
 
 def startGamemode1(playerName):
 
@@ -151,8 +166,6 @@ def startGamemode1(playerName):
         print("A dice was tossed and the computer will go first")
     time.sleep(1)
 
-    choices = {"1": choiceOne}
-
     while player.health > 0 and computer.health > 0:
         if turnDict["player"]==True:
             print("\nIt is your turn")
@@ -171,9 +184,7 @@ def startGamemode1(playerName):
             deckStatus(player.attackCard, player.healCard, player.specialCard)
             time.sleep(1)
             
-            print("What would you like to do?\n\t1.Attack 2.Heal 3.Special 4.Attack and Special 5.Heal and Special 6.Do Nothing")
-            userChoice = input("->")
-            choices[str(userChoice)](player.attackCard)
+            choices(player, computer)
 
             computer.health-=1000
         else:
