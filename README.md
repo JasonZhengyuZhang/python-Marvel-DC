@@ -14,13 +14,17 @@ Gamemode 1:
 After the deck has been dealt, either the computer or the player will start, and they will alternate in rounds. At the beginning of each new round, both the player and computer will be dealt a new card.
 
 In each round, a player have 6 choices (granted they have the cards)
-*attack
-*heal
-*special
-*attack and special
-*heal and special
-*do nothing 
+* attack
+* heal
+* special
+* attack and special
+* heal and special
+* do nothing 
 
 
-while the player or the computer's health is above 0, the game will continue.
-Inside of the while loop, there is a "if or else" for whethetr the current turn is the player's turn or the computer's turn. the turn number gets incremented, it is declared outside of the while loop. inside 
+Special Card:
+* they can give attacker a percentage increase in their current or next attack, the amount by which it increases is up to a proablistic chance
+* they can give attacker a percentage increase in their current or next heal, the amount by which it increases is up to a proablistic chance
+* they can give defender a percentage decrease on their opponent's next attack, the amount by which it decreases is up to a proablistic chance
+* they can give defender a percentage decrease on their opponent's next heal, the amount by which it decreases is up to a proablistic chance
+* they can just be a standard attack and heal that deals more damage or heals more than normal attack and heal card
