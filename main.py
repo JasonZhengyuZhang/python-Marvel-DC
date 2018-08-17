@@ -101,7 +101,7 @@ def deckStatus(attackDeck, healDeck, specialDeck):
     print ("\nYour Current Deck: \n" + "\t" + str(numberOfAttack) + " Attack Card(s) \n" + AttackDes + "\t" + str(numberOfHeal) + " Healing Card(s) \n" + HealDes + "\t" + str(numberOfSpecial) + " Special Cards(s) \n" + SpecialDes)
 
 def choices(attacker, defender):
-    choices = {"1": choiceOne}
+    choices = {"1": choiceOne, "2": choiceTwo}
     print("What would you like to do?\n\t1.Attack 2.Heal 3.Special 4.Attack and Special 5.Heal and Special 6.Do Nothing")
     userChoice = input("->")
     choices[str(userChoice)](attacker, defender)
@@ -116,8 +116,41 @@ def choiceOne(attacker, defender):
             print("\n-"+card.name+"\n")
         choosenCard=input(">")-1
         totalDamage=attacker.attackCard[choosenCard].attackBonus + attacker.attack
+        del attacker.attackCard[choosenCard]
         defender.health-=totalDamage
         print(attacker.name + "have dealt " + str(totalDamage) + " damage to " + defender.name)
+        print("\n" + attacker.name + " current health: " + str(attacker.health))
+        print("\n" + defender.name + " current health: " + str(defender.health))
+
+def choiceTwo(attacker, defender):
+    if len(attacker.attackCard)==0:
+        print("you cannot heal")
+        choices(attacker, defender)
+    else:
+        print("\nWhich heal card would you like to use?")
+        for card in attacker.healCard:
+            print("\n-"+card.name+"\n")
+        choosenCard=input(">")-1
+        totalHeal=attacker.healCard[choosenCard].healthBonus 
+        del attacker.healCard[choosenCard]
+        attacker.health+=totalHeal
+        print(attacker.name + " have healed for " + str(totalHeal))
+        print("\n" + attacker.name + " current health: " + str(attacker.health))
+        print("\n" + defender.name + " current health: " + str(defender.health))
+
+def choiceThree(attacker, defender):
+    if len(attacker.attackCard)==0:
+        print("you cannot perform a special")
+        choices(attacker, defender)
+    else:
+        print("\nWhich heal card would you like to use?")
+        for card in attacker.healCard:
+            print("\n-"+card.name+"\n")
+        choosenCard=input(">")-1
+        totalHeal=attacker.healCard[choosenCard].healthBonus 
+        del attacker.healCard[choosenCard]
+        attacker.health+=totalHeal
+        print(attacker.name + " have healed for " + str(totalHeal))
         print("\n" + attacker.name + " current health: " + str(attacker.health))
         print("\n" + defender.name + " current health: " + str(defender.health))
 
@@ -186,7 +219,6 @@ def startGamemode1(playerName):
             
             choices(player, computer)
 
-            computer.health-=1000
         else:
             print("\ncomputer's turn")
 
